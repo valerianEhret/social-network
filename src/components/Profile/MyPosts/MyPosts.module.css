@@ -1,0 +1,10 @@
+
+
+.content {
+  grid-area: c;
+  background-color: hotpink;
+}
+
+.item {
+  color: #adff2f;
+}
