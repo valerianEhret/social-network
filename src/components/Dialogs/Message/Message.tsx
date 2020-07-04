@@ -1,19 +1,28 @@
 import React from 'react';
-import classes from '../Message/Message';
+import classes from '../Dialogs.module.css'
 
 
-
-
-type MessagePropsType = {
-    text: string
+type PropsType = {
+    message:string
+    id?:number
 }
 
+export const Message = (props:PropsType) => {
+
+    let newMessageElement = React.createRef<HTMLTextAreaElement>();
+
+    let addMessage =() => {
+        let messageValue = newMessageElement.current?.value;
+        alert("add message")
+    }
 
 
+    return ( <div>
+        <div className={classes.message}>
+            {props.message}</div>
+    </div>
 
-export const Message = (props:MessagePropsType) => {
-    return (
-        <div className={classes.message}>{props.text}</div>
+
     )
 }
 

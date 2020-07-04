@@ -1,17 +1,18 @@
 import React from 'react';
-import classes from './MyPosts.module.css';
+import classes from './Post.module.css';
 
-const MyPosts = () => {
+type PropsType = {
+    message: string
+}
+
+const Post = (props: PropsType) => {
   return (
     <div className={classes.item}>
+      <img src="https://i.ytimg.com/vi/fUWrhetZh9M/maxresdefault.jpg" alt="" />
+      {props.message}
 
-        My posts
-      <div>
-          New posts
-      </div>
-        <div className={classes.posts}>post1</div>
-        <div className={classes.item}>post2</div>
-      </div>
+
+    </div>
   )
 }
-export default MyPosts;
+export default Post;
