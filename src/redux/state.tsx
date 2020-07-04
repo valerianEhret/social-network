@@ -1,5 +1,8 @@
 import React from 'react';
-import {act} from "react-dom/test-utils";
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
 
 
 export let store = {
@@ -112,7 +115,21 @@ export type RootStateType = {
 }
 
 
-// }
+export type addPostActionCreatorType = {
+    type: typeof ADD_POST
+}
+
+export type updateNewPostTextActionCreatorType = {
+    type: typeof UPDATE_NEW_POST_TEXT
+    newText:string
+}
+
+export const addPostActionCreator = ():addPostActionCreatorType => ({type: ADD_POST})
+
+export const updateNewPostTextActionCreator = (text:string):updateNewPostTextActionCreatorType => ({
+        type: UPDATE_NEW_POST_TEXT,
+        newText:text,
+})
 
 // window.store = store;
 export default store;

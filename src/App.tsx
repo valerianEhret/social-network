@@ -11,8 +11,6 @@ import {RootStateType} from "./redux/state";
 type PropsType = {
     state: RootStateType
     dispatch: Function
-    // addPost: (postMessage:string) => void
-    // updateNewPostText: (newText:string) => void
 }
 
 
