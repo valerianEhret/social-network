@@ -135,14 +135,9 @@ export type UpdateNewMessageBodyCreatorType = {
 
 export type ProfileActionType = AddPostActionCreatorType | UpdateNewPostTextActionCreatorType
 
-export const addPostActionCreator = ():AddPostActionCreatorType => ({type: ADD_POST})
 
-export const updateNewPostTextActionCreator = (text:string):UpdateNewPostTextActionCreatorType =>
-    ({ type: UPDATE_NEW_POST_TEXT, newText:text,})
 
-export const sendMessageCreator = ():SendMessageCreatorType => ({type: SEND_MESSAGE})
-export const updateNewMessageBodyCreator = (body:string):UpdateNewMessageBodyCreatorType =>
-    ({ type: UPDATE_NEW_MESSAGE_BODY, body:body})
+
 
 // window.store = store;
 export default store;
