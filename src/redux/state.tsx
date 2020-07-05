@@ -1,9 +1,12 @@
 import React from 'react';
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-
-
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY"
+const SEND_MESSAGE = "SEND-MESSAGE"
 
 export let store = {
     _state: {
@@ -16,7 +19,7 @@ export let store = {
             ]
         },
         dialogsPage: {
-            newMessage: "sdfs",
+            newMessageBody: "",
             dialogs: [
                 {id: 1, name: "Valerian"},
                 {id: 2, name: "Natalia"},
@@ -44,26 +47,22 @@ export let store = {
 
     },
 
-    dispatch(action:ActionPropsType) { // {type: "ADD-POST"}
-        if (action.type === "ADD-POST") {
-            const newPost: PostType = {
-                id: 5,
-                message: this._state.profilePage.newPostText
-            }
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = ""
-            this._callSubscriber(this._state)
-        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state)
-        }
+    dispatch(action: ActionPropsType) {
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
+        this._callSubscriber(this._state)
+
     }
 }
 
-type ActionPropsType = {
+export type ActionPropsType = {
     type: string
     message?: string
     newText:string
+    body:string
 }
 
 export type StorePropsType = {
@@ -99,7 +98,8 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    newMessage: string
+    newMessageBody: string
+
 
 }
 export type SiderbarType = {}
@@ -115,21 +115,34 @@ export type RootStateType = {
 }
 
 
-export type addPostActionCreatorType = {
+export type AddPostActionCreatorType = {
     type: typeof ADD_POST
 }
 
-export type updateNewPostTextActionCreatorType = {
+export type UpdateNewPostTextActionCreatorType = {
     type: typeof UPDATE_NEW_POST_TEXT
     newText:string
 }
 
-export const addPostActionCreator = ():addPostActionCreatorType => ({type: ADD_POST})
+export type SendMessageCreatorType = {
+    type: typeof SEND_MESSAGE
+}
 
-export const updateNewPostTextActionCreator = (text:string):updateNewPostTextActionCreatorType => ({
-        type: UPDATE_NEW_POST_TEXT,
-        newText:text,
-})
+export type UpdateNewMessageBodyCreatorType = {
+    type: typeof UPDATE_NEW_MESSAGE_BODY
+    body :string
+}
+
+export type ProfileActionType = AddPostActionCreatorType | UpdateNewPostTextActionCreatorType
+
+export const addPostActionCreator = ():AddPostActionCreatorType => ({type: ADD_POST})
+
+export const updateNewPostTextActionCreator = (text:string):UpdateNewPostTextActionCreatorType =>
+    ({ type: UPDATE_NEW_POST_TEXT, newText:text,})
+
+export const sendMessageCreator = ():SendMessageCreatorType => ({type: SEND_MESSAGE})
+export const updateNewMessageBodyCreator = (body:string):UpdateNewMessageBodyCreatorType =>
+    ({ type: UPDATE_NEW_MESSAGE_BODY, body:body})
 
 // window.store = store;
 export default store;
