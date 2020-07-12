@@ -46,13 +46,14 @@ const DialogsContainer = (props:DialogsPageType) => {
                 let state = store.getState().dialogsPage
 
                 const onSendMessageClick =() => {
-                    store.dispatch(sendMessageCreator())
+                    let action = sendMessageCreator()
+                    store.dispatch(action)
                 }
 
                 const onNewMessageChange = (body:string) => {
                     // let body = e.target.value
                     let action = updateNewMessageBodyCreator(body)
-                    // props.dispatch(action)
+                    store.dispatch(action)
 
                 }
 

@@ -41,7 +41,7 @@ const MyPostsContainer = (props: PropsType) => {
 
                 return  <MyPosts
                     posts={state.profilePage.posts}
-                    newPostText={store.getState().profilePage.newPostText}
+                    newPostText={state.profilePage.newPostText}
                     addPost={addPost}
                     updateNewPostText={onPostChange}
                 />

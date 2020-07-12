@@ -6,9 +6,9 @@ import {sidebarReducer} from "./sidebar-reducer";
 
 //закидываем все редюсеры сюда, объединяем их для редакса
 let reducers = combineReducers(   {
-    profileReducer:  profileReducer,
-    dialogsReducer:  dialogsReducer,
-    sidebarReducer: sidebarReducer,
+    profilePage:  profileReducer,
+    dialogsPage:  dialogsReducer,
+    sidebar: sidebarReducer,
 })
 
 // отдаем reducers в store

@@ -1,11 +1,15 @@
 import React from "react";
+import {Store} from "redux";
 import store from "./redux/redux-store";
-import {BrowserRouter} from "react-router-dom";
-import {StorePropsType} from "./redux/store";
 
-const StoreContext = React.createContext(store)
+const StoreContext = React.createContext<Store>(store)
 
-export const Provider = (props:StorePropsType) => {
+type ProviderType = {
+ store: Store
+ children: React.ReactNode
+}
+
+export const Provider = (props:ProviderType) => {
  return   <StoreContext.Provider value={props.store}>
      {props.children}
  </StoreContext.Provider>

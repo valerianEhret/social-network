@@ -34,7 +34,7 @@ const renderTree =(state:RootStateType) => {
 
 renderTree(store.getState());
 
-store.subsсribe(   () => {
+store.subscribe(   () => {
     let state = store.getState()
     renderTree(state)
     }
