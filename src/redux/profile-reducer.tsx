@@ -1,5 +1,5 @@
 import React from 'react';
-import {AddPostActionCreatorType, PostType, ProfilePageType, UpdateNewPostTextActionCreatorType} from "./state";
+import {AddPostActionCreatorType, PostType, ProfilePageType, UpdateNewPostTextActionCreatorType} from "./store";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -16,8 +16,18 @@ export const addPostActionCreator = ():AddPostActionCreatorType => ({type: ADD_P
 export const updateNewPostTextActionCreator = (text:string):UpdateNewPostTextActionCreatorType =>
     ({ type: UPDATE_NEW_POST_TEXT, newText:text,})
 
+//создаем иницилищационное значение для Редюсера, берем его из старого стора
+let initilState:ProfilePageType = {
+    newPostText: "",
+        posts: [
+    {id: 1, message: "Hi, How are you?"},
+    {id: 2, message: "It is my firs post"},
+    {id: 3, message: "Adyn, Adyn, Adyn!!!"}
+],
+}
 
-export const profileReducer = (state: ProfilePageType, action: ActionType): ProfilePageType => {
+
+export const profileReducer = (state: ProfilePageType = initilState, action: ActionType): ProfilePageType => {
 
     switch (action.type) {
 

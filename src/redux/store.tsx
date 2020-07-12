@@ -72,7 +72,7 @@ export type StorePropsType = {
     updateNewPostText: (newText: string) => void
     subsсribe: (observer: (state: RootStateType)=> void) =>  void
     getState: () => RootStateType
-    dispatch: (action:"string") => void
+    dispatch: (action:ActionPropsType) => void
 }
 
 export type MessageType = {

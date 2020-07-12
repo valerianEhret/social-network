@@ -3,36 +3,44 @@ import classes from './Dialogs.module.css';
 import {Message} from "./Message/Message";
 import {Dialogitem} from "./DialogItem/DialogItem";
 import {
+    DialogsPageType,
     // DialogsPageType,
     DialogType,
     MessageType
-} from "../../redux/state";
+} from "../../redux/store";
 import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 
-    type DialogsPageType = {
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-    newMessageBody: string
-    dispatch: Function
+type DialogsType = {
+    // dialogs: Array<DialogType>
+    // messages: Array<MessageType>
+    // newMessageBody: string
+    // dispatch: Function
+    dialogsPage:DialogsPageType
+    updateNewMessageBody: (body: string) => void
+    sendMessage: () => void
 }
 
-const Dialogs = (props:DialogsPageType) => {
+const Dialogs = (props:DialogsType) => {
 
-    let dialogsElements = props.dialogs.map( d => <Dialogitem name={d.name} id={d.id}/>   );
+    // let state = props.dialogsPage
 
-    let messagesElements = props.messages.map(m =>  <Message message={m.message} id={m.id}/> )
+    let dialogsElements = props.dialogsPage.dialogs.map( d => <Dialogitem name={d.name} id={d.id}/>   );
+
+    let messagesElements = props.dialogsPage.messages.map(m =>  <Message message={m.message} id={m.id}/> )
 
     // let newMessageBody = props.newMessageBody
 
     const onSendMessageClick =() => {
-        let action = sendMessageCreator()
-        props.dispatch(action)
+        props.sendMessage()
+        // let action = sendMessageCreator()
+        // props.dispatch(action)
     }
 
     const onNewMessageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.target.value
-        let action = updateNewMessageBodyCreator(body)
-        props.dispatch(action)
+        props.updateNewMessageBody(body)
+        // let action = updateNewMessageBodyCreator(body)
+        // props.dispatch(action)
 
     }
 
@@ -46,7 +54,7 @@ const Dialogs = (props:DialogsPageType) => {
                 <div>{messagesElements}</div>
                 <div>
                     <div><textarea
-                        value={props.newMessageBody}
+                        value={props.dialogsPage.newMessageBody}
                         placeholder="Enter your message"
                         onChange={onNewMessageChange}
                     />

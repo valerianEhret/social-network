@@ -1,7 +1,11 @@
 import React from 'react';
-import {SiderbarType} from "./state";
+import {SiderbarType} from "./store";
+
+let initialState:SiderbarType  = {
+
+}
 
 
-export const sidebarReducer = (state:SiderbarType, action:any):SiderbarType => {
+export const sidebarReducer = (state:SiderbarType=initialState, action:any):SiderbarType => {
     return state
 }

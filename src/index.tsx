@@ -1,20 +1,31 @@
 import React from 'react';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import store, {RootStateType} from "./redux/state";
+import store from "./redux/redux-store";
 import ReactDOM from "react-dom";
 import App from "./App";
 import {BrowserRouter} from "react-router-dom";
+import {RootStateType} from "./redux/store";
+import StoreContext, {Provider} from "./StoreContext";
 
 const renderTree =(state:RootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
-        <React.StrictMode>
-            <App state ={state}
-                 dispatch ={store.dispatch.bind(store)}
-                 // store={store}
-            />
-        </React.StrictMode>,
+            <Provider store={store}>
+                {/*<StoreContext.Provider*/}
+                {/*    value={store}*/}
+                {/*>*/}
+                {/*<React.StrictMode>*/}
+                <App
+                    // state ={state}
+                    //  dispatch ={store.dispatch.bind(store)}
+                    // store={store}
+                />
+                {/*</React.StrictMode>,*/}
+
+                {/*</StoreContext.Provider>*/}
+
+            </Provider>
             </BrowserRouter>,
         document.getElementById('root')
     );
@@ -23,7 +34,12 @@ const renderTree =(state:RootStateType) => {
 
 renderTree(store.getState());
 
-store.subsсribe(renderTree)
+store.subsсribe(   () => {
+    let state = store.getState()
+    renderTree(state)
+    }
+
+)
 
 
 // If you want your app to work offline and load faster, you can change
