@@ -15,4 +15,10 @@ let reducers = combineReducers(   {
 
 export let store = createStore(reducers)
 
+export type appStateType = ReturnType<typeof reducers >
+
 export default store;
+
+
+
+

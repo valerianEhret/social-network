@@ -5,10 +5,11 @@ import store from "./redux/redux-store";
 import ReactDOM from "react-dom";
 import App from "./App";
 import {BrowserRouter} from "react-router-dom";
-import {RootStateType} from "./redux/store";
-import StoreContext, {Provider} from "./StoreContext";
+import {Provider} from "react-redux";
 
-const renderTree =(state:RootStateType) => {
+
+
+// const renderTree =(state:RootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>
@@ -29,17 +30,17 @@ const renderTree =(state:RootStateType) => {
             </BrowserRouter>,
         document.getElementById('root')
     );
-}
+// }
 
 
-renderTree(store.getState());
-
-store.subscribe(   () => {
-    let state = store.getState()
-    renderTree(state)
-    }
-
-)
+// renderTree(store.getState());
+//
+// store.subscribe(   () => {
+//     let state = store.getState()
+//     renderTree(state)
+//     }
+//
+// )
 
 
 // If you want your app to work offline and load faster, you can change

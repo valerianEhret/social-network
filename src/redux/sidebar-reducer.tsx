@@ -1,5 +1,8 @@
 import React from 'react';
-import {SiderbarType} from "./store";
+// import {SiderbarType} from "./store";
+
+
+type SiderbarType = {}
 
 let initialState:SiderbarType  = {
 
