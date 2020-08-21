@@ -37,10 +37,9 @@ export const dialogsReducer = (state:dialogsStateType = initialState,action:Acti
 
         case 'SEND_MESSAGE':
             let body = state.newMessageBody
-            state.newMessageBody = ""
-            state.messages.push({id: 6, message: body})
+            let stateCopy = {...state, newMessageBody:'', messages: [...state.messages,{id: 6, message: body} ] }
 
-            return state
+            return stateCopy
 
         default:
 
