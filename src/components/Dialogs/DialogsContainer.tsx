@@ -4,8 +4,8 @@ import React from 'react';
 import {
     dialogsDataType,
     messageDataType,
-    sendMessageCreator,
-    updateNewMessageBodyCreator
+    sendMessageAC,
+    updateNewMessageBodyCreator,
 } from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
@@ -105,7 +105,7 @@ let mapDispatchToProps = (dispatch:Dispatch):MapDispatchToPropsType => {
             dispatch(updateNewMessageBodyCreator(body))
         },
         sendMessage:()=>{
-            dispatch(sendMessageCreator())
+            dispatch(sendMessageAC())
         }
 
     }

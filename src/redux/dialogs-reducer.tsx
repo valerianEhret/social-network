@@ -18,28 +18,33 @@ let initialState  = {
     ] as Array<messageDataType>,
 }
 
+//action creators
 
-export const sendMessageCreator = () => ({type: 'SEND_MESSAGE'} as const)
+export const sendMessageAC = () => ({type: 'SEND_MESSAGE'} as const)
 export const updateNewMessageBodyCreator = (body:string) => ({ type: 'UPDATE_NEW_MESSAGE_BODY', body:body}as const)
 
+
+
+
 export type dialogsStateType = typeof initialState
+
+// reducer
+
 export const dialogsReducer = (state:dialogsStateType = initialState,action:ActionsType) => {
 
     switch (action.type) {
 
-        case 'UPDATE_NEW_MESSAGE_BODY':{
-            let stateCopy = {
+        case 'UPDATE_NEW_MESSAGE_BODY':
+            return  {
                 ...state,
                 newMessageBody: action.body
-            };
-            return stateCopy;
-    }
+            }
 
         case 'SEND_MESSAGE':
             let body = state.newMessageBody
-            let stateCopy = {...state, newMessageBody:'', messages: [...state.messages,{id: 6, message: body} ] }
-
-            return stateCopy
+            return  {...state,
+                newMessageBody:'',
+                messages: [...state.messages,{id: 6, message: body} ] }
 
         default:
 
@@ -50,7 +55,7 @@ export const dialogsReducer = (state:dialogsStateType = initialState,action:Acti
 
 //type
 type ActionsType =
-    | ReturnType<typeof sendMessageCreator>
+    | ReturnType<typeof sendMessageAC>
     | ReturnType<typeof updateNewMessageBodyCreator>
 
 // type actionType = inferType<typeof action>
