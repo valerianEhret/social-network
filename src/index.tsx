@@ -13,19 +13,7 @@ import {Provider} from "react-redux";
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>
-                {/*<StoreContext.Provider*/}
-                {/*    value={store}*/}
-                {/*>*/}
-                {/*<React.StrictMode>*/}
-                <App
-                    // state ={state}
-                    //  dispatch ={store.dispatch.bind(store)}
-                    // store={store}
-                />
-                {/*</React.StrictMode>,*/}
-
-                {/*</StoreContext.Provider>*/}
-
+                <App/>
             </Provider>
             </BrowserRouter>,
         document.getElementById('root')

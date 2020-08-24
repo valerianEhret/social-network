@@ -13,13 +13,18 @@ type LocationType = {
     country:string
 }
 
-export type UsersType = {
+export type UserType = {
     id:number
-    photoUrl:string
-    fullName:string
+    photos:string
+    name:string
     followed:boolean
     status:string
-    location:LocationType
+
+}
+
+export type UsersType = {
+    users: Array<UserType>
+
 }
 
 type UsersStateType = typeof initilState
@@ -38,33 +43,36 @@ export const setUserAC = (users:Array<UsersType>) => ({type: "SET_USERS", users}
 
 //initial state
 
-let initilState = {
+let initilState: UsersType = {
     users: [
-        {id: 1, photoUrl:"https://sun6-13.userapi.com/c856032/v856032846/2338d2/nGwJCQbRMQs.jpg",  fullName: "Valerian Ehret", followed:true, status: "first?", location: {city:"Bielefeld", country:"Germany"}},
-        {id: 2, photoUrl:"https://sun6-13.userapi.com/c856032/v856032846/2338d2/nGwJCQbRMQs.jpg",  fullName: "Natalie Ehret", followed:false, status: "Hi, How are you?", location: {city:"Bielefeld", country:"Belarus"}},
-        {id: 3, photoUrl:"https://sun6-13.userapi.com/c856032/v856032846/2338d2/nGwJCQbRMQs.jpg",  fullName: "Mark Ehret", followed:false, status: "H333333?", location: {city:"Seatle", country:"USA"}},
-        {id: 3, photoUrl:"https://sun6-13.userapi.com/c856032/v856032846/2338d2/nGwJCQbRMQs.jpg",  fullName: "Zoe Ehret", followed:true, status: "H44444?", location: {city:"Milano", country:"Italy"}},
-    ] as Array<UsersType>,
+    //     {id: 1, photoUrl:"https://sun6-13.userapi.com/c856032/v856032846/2338d2/nGwJCQbRMQs.jpg",  fullName: "Valerian Ehret", followed:true, status: "first?", location: {city:"Bielefeld", country:"Germany"}},
+    //     {id: 2, photoUrl:"https://sun6-13.userapi.com/c856032/v856032846/2338d2/nGwJCQbRMQs.jpg",  fullName: "Natalie Ehret", followed:false, status: "Hi, How are you?", location: {city:"Bielefeld", country:"Belarus"}},
+    //     {id: 3, photoUrl:"https://sun6-13.userapi.com/c856032/v856032846/2338d2/nGwJCQbRMQs.jpg",  fullName: "Mark Ehret", followed:false, status: "H333333?", location: {city:"Seatle", country:"USA"}},
+    //     {id: 4, photoUrl:"https://sun6-13.userapi.com/c856032/v856032846/2338d2/nGwJCQbRMQs.jpg",  fullName: "Zoe Ehret", followed:true, status: "H44444?", location: {city:"Milano", country:"Italy"}},
+    // ] as Array<UsersType>,
+]
 }
 
 
 
 //reducer
 
-export const usersReducer = (state: UsersStateType = initilState, action: ActionsType) => {
+export const usersReducer = (state: UsersType = initilState, action: ActionsType) => {
 
     switch (action.type) {
 
         case "FOLLOW":
-            return {
+            return  {
                 ...state, users: state.users.map(u => {
                         if (u.id === action.userId) {
                             return {...u, followed: true}
                         }
-                        return u
+                        else return u
                     }
                 )
             }
+
+
 
         case "UNFOLLOW":
             return {
@@ -72,7 +80,7 @@ export const usersReducer = (state: UsersStateType = initilState, action: Action
                         if (u.id === action.userId) {
                             return {...u, followed: false}
                         }
-                        return u
+                       else return u
                     }
                 )
             }

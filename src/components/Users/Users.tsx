@@ -1,26 +1,39 @@
 import React from "react";
 import { MapStateToPropsType, MapDispatchToPropsType } from "./UsersContainer";
-
-
+import styles  from "./users.module.css"
+import  axios from 'axios'
 
 type UsersDataStateType = MapStateToPropsType & MapDispatchToPropsType
 
 export function Users(props:UsersDataStateType) {
+
+    if (props.usersPage.length === 0) {
+
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            debugger
+            props.setUsers(response.data.items)
+        })
+    }
+
+debugger
     return (
         <div>
             {props.usersPage.map( u => <div key={u.id}>
                 <span>
-                    <div><img  src={u.photoUrl}/></div>
-                    <div><button>follw</button></div>
+                    <div><img  src={u.photos.small? u.photos.small:"https://image.flaticon.com/icons/png/512/21/21104.png" } className={styles.userPhoto}/></div>
+
+                    <div>{u.followed?
+                        <button onClick={  ()=> {props.unfollow(u.id)}}>Unfollow</button>
+                       :<button onClick={  ()=> {props.follow(u.id)}} >Follow</button>}</div>
                 </span>
                 <span>
                     <span>
-                        <div>{u.fullName}</div>
+                        <div>{u.name}</div>
                         <div>{u.status}</div>
                     </span>
                     <span>
-                        <div>{u.location.city}</div>
-                        <div>{u.location.country}</div>
+                        <div>"u.location.city"</div>
+                        <div>"u.location.country"</div>
                     </span>
                 </span>
                 </div>
