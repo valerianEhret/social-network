@@ -5,11 +5,11 @@ import  axios from 'axios'
 import userPhoto from "../../assets/images/images.png"
 
 
-type UsersDataStateType = MapStateToPropsType & MapDispatchToPropsType
+export type UsersDataStateType = MapStateToPropsType & MapDispatchToPropsType
 
 export function Users(props:UsersDataStateType) {
 
-debugger
+
 
 
    let getUsers = () =>{
