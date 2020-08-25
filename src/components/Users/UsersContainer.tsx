@@ -38,6 +38,7 @@ const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
             dispatch(unFollowAC(userId))
         },
         setUsers:(users:Array<UserType>) => {
+            debugger
             dispatch(setUserAC(users))
         }
     }

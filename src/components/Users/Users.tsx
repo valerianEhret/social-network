@@ -9,11 +9,15 @@ type UsersDataStateType = MapStateToPropsType & MapDispatchToPropsType
 
 export function Users(props:UsersDataStateType) {
 
-   const getUsers = () =>{
+debugger
+
+
+   let getUsers = () =>{
+
        if (props.usersPage.length === 0) {
 
            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-               debugger
+
                props.setUsers(response.data.items)
            })
        }
@@ -23,7 +27,7 @@ export function Users(props:UsersDataStateType) {
 debugger
     return (
         <div>
-            <button onClick={()=> getUsers}>Get Users</button>
+            <button onClick={getUsers}>Get Users</button>
             {props.usersPage.map( u => <div key={u.id}>
                 <span>
                     <div><img  src={
