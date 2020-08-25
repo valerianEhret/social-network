@@ -2,25 +2,33 @@ import React from "react";
 import { MapStateToPropsType, MapDispatchToPropsType } from "./UsersContainer";
 import styles  from "./users.module.css"
 import  axios from 'axios'
+import userPhoto from "../../assets/images/images.png"
+
 
 type UsersDataStateType = MapStateToPropsType & MapDispatchToPropsType
 
 export function Users(props:UsersDataStateType) {
 
-    if (props.usersPage.length === 0) {
+   const getUsers = () =>{
+       if (props.usersPage.length === 0) {
 
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            debugger
-            props.setUsers(response.data.items)
-        })
-    }
+           axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+               debugger
+               props.setUsers(response.data.items)
+           })
+       }
+   }
+
 
 debugger
     return (
         <div>
+            <button onClick={()=> getUsers}>Get Users</button>
             {props.usersPage.map( u => <div key={u.id}>
                 <span>
-                    <div><img  src={u.photos.small? u.photos.small:"https://image.flaticon.com/icons/png/512/21/21104.png" } className={styles.userPhoto}/></div>
+                    <div><img  src={
+                        // u.photos.small? u.photos.small:
+                            userPhoto } className={styles.userPhoto}/></div>
 
                     <div>{u.followed?
                         <button onClick={  ()=> {props.unfollow(u.id)}}>Unfollow</button>
