@@ -6,6 +6,8 @@ type ActionsType =
     | ReturnType<typeof followAC>
     | ReturnType<typeof unFollowAC>
     | ReturnType<typeof setUserAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
 
 //state type
 type LocationType = {
@@ -24,7 +26,9 @@ export type UserType = {
 
 export type UsersType = {
     users: Array<UserType>
-
+    pageSize:number
+    totalUsersCount:number
+    currentPage:number
 }
 
 type UsersStateType = typeof initilState
@@ -40,17 +44,19 @@ export const unFollowAC = (userId:number) => ({type: "UNFOLLOW", userId} as cons
 
 export const setUserAC = (users:Array<UserType>) => ({type: "SET_USERS", users} as const)
 
+export const setCurrentPageAC = (currentPage:number) => ({type: "SET_CURRENT_PAGE", currentPage} as const)
+
+
+export const setTotalUsersCountAC = (totalUsersCount:number) => ({type: "SET_TOTAL_USERS_COUNT", totalUsersCount} as const)
+
 
 //initial state
 
 let initilState: UsersType = {
-    users: [
-    //     {id: 1, photoUrl:"https://sun6-13.userapi.com/c856032/v856032846/2338d2/nGwJCQbRMQs.jpg",  fullName: "Valerian Ehret", followed:true, status: "first?", location: {city:"Bielefeld", country:"Germany"}},
-    //     {id: 2, photoUrl:"https://sun6-13.userapi.com/c856032/v856032846/2338d2/nGwJCQbRMQs.jpg",  fullName: "Natalie Ehret", followed:false, status: "Hi, How are you?", location: {city:"Bielefeld", country:"Belarus"}},
-    //     {id: 3, photoUrl:"https://sun6-13.userapi.com/c856032/v856032846/2338d2/nGwJCQbRMQs.jpg",  fullName: "Mark Ehret", followed:false, status: "H333333?", location: {city:"Seatle", country:"USA"}},
-    //     {id: 4, photoUrl:"https://sun6-13.userapi.com/c856032/v856032846/2338d2/nGwJCQbRMQs.jpg",  fullName: "Zoe Ehret", followed:true, status: "H44444?", location: {city:"Milano", country:"Italy"}},
-    // ] as Array<UsersType>,
-]
+    users: [],
+    pageSize:5,
+    totalUsersCount: 0,
+    currentPage:1
 }
 
 
@@ -79,14 +85,20 @@ export const usersReducer = (state: UsersType = initilState, action: ActionsType
                 ...state, users: state.users.map(u => {
                         if (u.id === action.userId) {
                             return {...u, followed: false}
-                        }
-                       else return u
+                        } else return u
                     }
                 )
             }
         case "SET_USERS":
-            debugger
-            return {...state, users:[...state.users, ...action.users]}
+            return {...state, users: [...action.users]}
+
+        case "SET_CURRENT_PAGE":
+            return {...state, currentPage: action.currentPage}
+
+        case "SET_TOTAL_USERS_COUNT":
+            return {...state, totalUsersCount: action.totalUsersCount}
+
+
         default:
             return state
     }
