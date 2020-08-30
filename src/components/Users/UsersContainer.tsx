@@ -1,6 +1,5 @@
 import React from "react";
 import {connect} from "react-redux";
-import Users from "./UsersC";
 import {appStateType} from "../../redux/redux-store";
 import {
     unFollowAC,
@@ -11,10 +10,11 @@ import {
     setTotalUsersCountAC
 } from "../../redux/users-reducer";
 import { Dispatch } from 'redux';
+import axios from "axios";
+import {Users} from "./Users";
 
 
 //Types
-
 
 export type MapStateToPropsType = {
     usersPage: Array<UserType>
@@ -29,8 +29,46 @@ export type MapDispatchToPropsType = {
     setUsers: (users: Array<UserType>) => void
     setCurrentPage:(pageNumber:number)=>void
     setTotalUsersCount:(totalUsersCount:number)=>void
+
 }
 
+type UsersDataStateType = MapStateToPropsType & MapDispatchToPropsType
+
+
+//class component
+class UsersAPIComponent extends React.Component<UsersDataStateType>{
+
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+
+            this.props.setUsers(response.data.items)
+            this.props.setTotalUsersCount(response.data.totalCount)
+        })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+
+            this.props.setUsers(response.data.items)
+        })
+    }
+
+
+    render() {
+        return <Users
+            usersPage={this.props.usersPage}
+            pageSize={this.props.pageSize}
+            totalUsersCount={this.props.totalUsersCount}
+            currentPage={this.props.currentPage}
+            onPageChanged={this.onPageChanged}
+            follow={this.props.follow}
+            unfollow={this.props.unfollow}
+        />
+    }
+}
+
+//mapStateToProps
 const mapStateToProps = (state: appStateType): MapStateToPropsType => {
 
     return {
@@ -42,8 +80,7 @@ const mapStateToProps = (state: appStateType): MapStateToPropsType => {
     }
 }
 
-
-
+//mapDispatchToProps
 const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
     return {
         follow: (userId:number) => {
@@ -66,4 +103,5 @@ const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
     }
 }
 
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, appStateType>(mapStateToProps, mapDispatchToProps)(Users)
+//connect
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, appStateType>(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
