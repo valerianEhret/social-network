@@ -3,12 +3,12 @@
 
 //action types
 type ActionsType =
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unFollowAC>
-    | ReturnType<typeof setUserAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
-    | ReturnType<typeof toggleIsFetchingAC>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unFollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
 
 
 //state type
@@ -39,19 +39,20 @@ type UsersStateType = typeof initilState
 
 
 
+
 //action Creators
 
-export const followAC = (userId:number) => ({type: "FOLLOW", userId} as const)
+export const follow = (userId:number) => ({type: "FOLLOW", userId} as const)
 
-export const unFollowAC = (userId:number) => ({type: "UNFOLLOW", userId} as const)
+export const unFollow = (userId:number) => ({type: "UNFOLLOW", userId} as const)
 
-export const setUserAC = (users:Array<UserType>) => ({type: "SET_USERS", users} as const)
+export const setUsers = (users:Array<UserType>) => ({type: "SET_USERS", users} as const)
 
-export const setCurrentPageAC = (currentPage:number) => ({type: "SET_CURRENT_PAGE", currentPage} as const)
+export const setCurrentPage = (currentPage:number) => ({type: "SET_CURRENT_PAGE", currentPage} as const)
 
-export const setTotalUsersCountAC = (totalUsersCount:number) => ({type: "SET_TOTAL_USERS_COUNT", totalUsersCount} as const)
+export const setTotalUsersCount = (totalUsersCount:number) => ({type: "SET_TOTAL_USERS_COUNT", totalUsersCount} as const)
 
-export const toggleIsFetchingAC = (isFetching:boolean) => ({type: "TOGGLE_IS_FETCHING", isFetching} as const)
+export const toggleIsFetching = (isFetching:boolean) => ({type: "TOGGLE_IS_FETCHING", isFetching} as const)
 
 
 //initial state
