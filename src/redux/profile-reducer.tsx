@@ -7,6 +7,7 @@ import React from 'react';
 type ActionsType =
     | ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewPostTextActionCreator>
+    | ReturnType<typeof setUserProfile>
 
 export type PostType = {
     id:number
@@ -25,6 +26,8 @@ export const addPostActionCreator = () => ({type: 'ADD_POST'} as const)
 export const updateNewPostTextActionCreator = (text:string) =>
     ({ type: 'UPDATE_NEW_POST_TEXT', newText:text,} as const)
 
+export const setUserProfile = (profile:any) => ({type:'SET_USER_PROFILE', profile} as const)
+
 //создаем иницилищационное значение для Редюсера, берем его из старого стора
 let initilState = {
     newPostText: "" as string,
@@ -33,6 +36,7 @@ let initilState = {
     {id: 2, message: "It is my firs post"},
     {id: 3, message: "Adyn, Adyn, Adyn!!!"}
 ] as Array<PostDataType>,
+    profile:null
 }
 
 
@@ -51,7 +55,12 @@ export const profileReducer = (state: profileStateType = initilState, action: Ac
 
         return {...state,
             newPostText: action.newText}
-            
+
+
+        case 'SET_USER_PROFILE'   : {
+            return {...state, profile:action.profile}
+        }
+
         default:
             return state
     }

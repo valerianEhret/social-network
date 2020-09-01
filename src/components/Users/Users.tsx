@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./users.module.css"
 import userPhoto from "../../assets/images/images.png"
 import {UserType} from "../../redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 
 type UsersDataStateType = {
@@ -34,12 +35,17 @@ export function Users(props: UsersDataStateType) {
 
 
             </div>
-            {/*<button onClick={this.getUsers}>Get Users</button>*/}
             {props.usersPage.map(u => <div key={u.id}>
                 <span>
-                    <div><img src={
-                        // u.photos.small!= null? u.photos.small:
-                        userPhoto} className={styles.userPhoto}/></div>
+                        <div>
+                            <NavLink to={'/profile'+u.id}>
+                            <img src={
+                            // u.photos.small!= null? u.photos.small:
+                            userPhoto} className={styles.userPhoto}/>
+                            </NavLink>
+                            </div>
+
+
 
                     <div>{u.followed ?
                         <button onClick={() => {

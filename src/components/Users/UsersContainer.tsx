@@ -64,7 +64,6 @@ class UsersAPIComponent extends React.Component<UsersDataStateType>{
 
     render() {
         return <>
-
             {this.props.isFetching? <Preloader/>:null}
             <Users
             usersPage={this.props.usersPage}
