@@ -3,12 +3,13 @@ import classes from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {ProfileType} from "./ProfileContainer";
 
 type PropsType = {
-
+   profile:ProfileType
 }
 
-const Profile = (props:any) => {
+const Profile = (props:PropsType) => {
     return (
         <div>
             <ProfileInfo profile={props.profile}/>
