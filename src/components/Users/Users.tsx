@@ -41,8 +41,8 @@ export function Users(props: UsersDataStateType) {
                         <div>
                             <NavLink to={'/profile/'+u.id}>
                             <img src={
-                            // u.photos.small!= null? u.photos.small:
-                            userPhoto} className={styles.userPhoto}/>
+                                // u.photos.small!= null? u.photos.small:
+                                userPhoto} className={styles.userPhoto}/>
                             </NavLink>
                             </div>
 
@@ -52,7 +52,7 @@ export function Users(props: UsersDataStateType) {
                         <button onClick={() => {
                             axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{withCredentials:true,
                                 headers:{
-                                "API-KEY":"39c88548-6df5-43ab-a1ae-8869e921e539"
+                                    "API-KEY":"39c88548-6df5-43ab-a1ae-8869e921e539"
                                 }
 
                             }).then(response => {
@@ -96,8 +96,3 @@ export function Users(props: UsersDataStateType) {
     )
 
 }
-
-
-
-
-
