@@ -41,10 +41,10 @@ type UsersDataStateType = MapStateToPropsType & MapDispatchToPropsType
 class UsersAPIComponent extends React.Component<UsersDataStateType>{
 
     componentDidMount() {
-        debugger
+
         this.props.toggleIsFetching(true)
         getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-
+         debugger
             this.props.toggleIsFetching(false)
             this.props.setUsers(data.items)
             this.props.setTotalUsersCount(data.totalCount)
