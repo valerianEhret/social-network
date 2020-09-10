@@ -23,17 +23,13 @@ export const usersAPI = {
 
 
 
-export const getUsers = (currentPage:number,pageSize:number ) => {
-    debugger
-    return instance.get(baseURL+`users?page=${currentPage}&count=${pageSize}`,
-        {withCredentials:true}).then(response => response.data)
-}
+// export const getUsers = (currentPage:number,pageSize:number ) => {
+//     debugger
+//     return instance.get(baseURL+`users?page=${currentPage}&count=${pageSize}`,
+//         {withCredentials:true}).then(response => response.data)
+// }
 
 
-export const getUsers2 = () => {
-
-
-}
 
 
 

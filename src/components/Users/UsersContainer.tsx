@@ -12,7 +12,8 @@ import {
 import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
-import {getUsers} from "../../api/api";
+import {usersAPI} from "../../api/api";
+// import {getUsers} from "../../api/api";
 
 //Types
 
@@ -43,7 +44,7 @@ class UsersAPIComponent extends React.Component<UsersDataStateType>{
     componentDidMount() {
 
         this.props.toggleIsFetching(true)
-        getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
          debugger
             this.props.toggleIsFetching(false)
             this.props.setUsers(data.items)
@@ -55,7 +56,7 @@ class UsersAPIComponent extends React.Component<UsersDataStateType>{
         debugger
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber);
-        getUsers(pageNumber,this.props.pageSize).then(data => {
+        usersAPI.getUsers(pageNumber,this.props.pageSize).then(data => {
 
             this.props.toggleIsFetching(false)
             this.props.setUsers(data.items)
