@@ -14,6 +14,9 @@ type UsersDataStateType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     usersPage: Array<UserType>
+    toggleIsFollowingProgress:(isFetching:boolean, userId:number)=>void
+    // followingInProgress:boolean
+    followingInProgress:any[]
 }
 
 
@@ -49,7 +52,9 @@ export function Users(props: UsersDataStateType) {
 
 
                     <div>{u.followed ?
-                        <button onClick={() => {
+                        <button disabled={props.followingInProgress.some(id=> id === u.id)} onClick={() => {
+                            debugger
+                            props.toggleIsFollowingProgress(true, u.id)
                             axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{withCredentials:true,
                                 headers:{
                                     "API-KEY":"39c88548-6df5-43ab-a1ae-8869e921e539"
@@ -60,9 +65,11 @@ export function Users(props: UsersDataStateType) {
                                 if (response.data.resultCode ===0) {
                                     props.unfollow(u.id)
                                 }
+                                props.toggleIsFollowingProgress(false, u.id)
                             })
                         }}>Unfollow</button>
-                        : <button onClick={() => {
+                        : <button  disabled={props.followingInProgress.some(id=> id === u.id)}  onClick={() => {
+                            props.toggleIsFollowingProgress(true, u.id)
                             axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{},{withCredentials:true,
                                 headers:{
                                     "API-KEY":"39c88548-6df5-43ab-a1ae-8869e921e539"
@@ -72,6 +79,7 @@ export function Users(props: UsersDataStateType) {
                                 if (response.data.resultCode ===0) {
                                     props.follow(u.id)
                                 }
+                                props.toggleIsFollowingProgress(false, u.id)
                             })
 
 
