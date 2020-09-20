@@ -14,7 +14,7 @@ withCredentials:true,
 });
 
 export const usersAPI = {
-    getUsers(currentPage:number,pageSize:number ) {
+    getUsers(currentPage:number,pageSize:number) {
         debugger
         return instance.get(`users?page=${currentPage}&count=${pageSize}`,
             {withCredentials:true}).then(response => response.data)

@@ -2,6 +2,9 @@
 //types
 
 //action types
+import {usersAPI} from "../api/api";
+import {Dispatch} from "react";
+
 type ActionsType =
     | ReturnType<typeof follow>
     | ReturnType<typeof unFollow>
@@ -42,22 +45,6 @@ type UsersStateType = typeof initilState
 
 
 
-
-//action Creators
-
-export const follow = (userId:number) => ({type: "FOLLOW", userId} as const)
-
-export const unFollow = (userId:number) => ({type: "UNFOLLOW", userId} as const)
-
-export const setUsers = (users:Array<UserType>) => ({type: "SET_USERS", users} as const)
-
-export const setCurrentPage = (currentPage:number) => ({type: "SET_CURRENT_PAGE", currentPage} as const)
-
-export const setTotalUsersCount = (totalUsersCount:number) => ({type: "SET_TOTAL_USERS_COUNT", totalUsersCount} as const)
-
-export const toggleIsFetching = (isFetching:boolean) => ({type: "TOGGLE_IS_FETCHING", isFetching} as const)
-
-export const toggleIsFollowingProgress = (isFetching:boolean, userId:number ) => ({type:"TOGGLE_IS_FOLLOWING_PROGRESS",isFetching, userId} as const)
 
 //initial state
 
@@ -121,3 +108,39 @@ export const usersReducer = (state: UsersType = initilState, action: ActionsType
             return state
     }
 }
+
+//action Creators
+
+export const follow = (userId:number) => ({type: "FOLLOW", userId} as const)
+
+export const unFollow = (userId:number) => ({type: "UNFOLLOW", userId} as const)
+
+export const setUsers = (users:Array<UserType>) => ({type: "SET_USERS", users} as const)
+
+export const setCurrentPage = (currentPage:number) => ({type: "SET_CURRENT_PAGE", currentPage} as const)
+
+export const setTotalUsersCount = (totalUsersCount:number) => ({type: "SET_TOTAL_USERS_COUNT", totalUsersCount} as const)
+
+export const toggleIsFetching = (isFetching:boolean) => ({type: "TOGGLE_IS_FETCHING", isFetching} as const)
+
+export const toggleIsFollowingProgress = (isFetching:boolean, userId:number ) => ({type:"TOGGLE_IS_FOLLOWING_PROGRESS",isFetching, userId} as const)
+
+
+
+//thunk
+
+export const getUsers= (currentPage:number, pageSize:number) => {
+
+    return (dispatch:Dispatch<any>) => {
+
+        dispatch(toggleIsFetching(true))
+
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
+    }
+}
+
+
