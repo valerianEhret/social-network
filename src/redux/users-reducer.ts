@@ -109,6 +109,7 @@ export const usersReducer = (state: UsersType = initilState, action: ActionsType
     }
 }
 
+
 //action Creators
 
 export const follow = (userId:number) => ({type: "FOLLOW", userId} as const)
@@ -144,3 +145,32 @@ export const getUsers= (currentPage:number, pageSize:number) => {
 }
 
 
+export const followThunk= (userId:number) => {
+
+    return (dispatch: Dispatch<any>) => {
+
+        dispatch(toggleIsFollowingProgress(true, userId))
+        usersAPI.follow(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(follow(userId))
+                }
+                dispatch(toggleIsFollowingProgress(false, userId))
+            })
+    }
+}
+
+export const unfollowThunk= (userId:number) => {
+
+    return (dispatch: Dispatch<any>) => {
+
+        dispatch(toggleIsFollowingProgress(true, userId))
+        usersAPI.unfollow(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unFollow(userId))
+                }
+                dispatch(toggleIsFollowingProgress(false, userId))
+            })
+    }
+}

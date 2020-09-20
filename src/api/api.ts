@@ -18,7 +18,13 @@ export const usersAPI = {
         debugger
         return instance.get(`users?page=${currentPage}&count=${pageSize}`,
             {withCredentials:true}).then(response => response.data)
-    }
+    },
+    unfollow(userId:number) {
+     return  instance.delete(`follow/${userId}`)
+    },
+    follow(userId:number ) {
+       return  instance.post(`follow/${userId}`,{})
+    },
 }
 
 
