@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {Dispatch} from 'react';
+import {usersAPI} from "../api/api";
 
 
 
@@ -18,15 +19,6 @@ export type PostDataType = {
     id:number
     message:string
 }
-
-//action Creators
-
-export const addPostActionCreator = () => ({type: 'ADD_POST'} as const)
-
-export const updateNewPostTextActionCreator = (text:string) =>
-    ({ type: 'UPDATE_NEW_POST_TEXT', newText:text,} as const)
-
-export const setUserProfile = (profile:any) => ({type:'SET_USER_PROFILE', profile} as const)
 
 //создаем иницилищационное значение для Редюсера, берем его из старого стора
 let initilState = {
@@ -64,4 +56,19 @@ export const profileReducer = (state: profileStateType = initilState, action: Ac
         default:
             return state
     }
+}
+
+//action Creators
+
+export const addPostActionCreator = () => ({type: 'ADD_POST'} as const)
+
+export const updateNewPostTextActionCreator = (text:string) =>
+    ({ type: 'UPDATE_NEW_POST_TEXT', newText:text,} as const)
+
+export const setUserProfile = (profile:any) => ({type:'SET_USER_PROFILE', profile} as const);
+
+export const getUserProfile = (userId:number) => (dispatch:Dispatch<ActionsType>) => {
+    usersAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfile(response.data))
+    })
 }

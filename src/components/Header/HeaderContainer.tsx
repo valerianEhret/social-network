@@ -1,10 +1,8 @@
 import React, {Dispatch} from 'react';
 import {appStateType} from "../../redux/redux-store";
-import {UserType} from "../../redux/users-reducer";
 import Header from "./Header"
-import axios from "axios";
 import {connect} from "react-redux";
-import {setAutUserData} from "../../redux/auth-reducer";
+import {getAuthUserData} from "../../redux/auth-reducer";
 
 
 //Types
@@ -15,7 +13,8 @@ export type MapStateToPropsType = {
 }
 
 export type MapDispatchToPropsType = {
-    setAutUserData: (id:number | null, login: string | null, email:string | null) => void
+    // setAutUserData: (id:number | null, login: string | null, email:string | null) => void
+    getAuthUserData:()=>void
 
 }
 
@@ -29,13 +28,13 @@ const mapStateToProps = (state: appStateType): MapStateToPropsType => ({
 
 
 //mapDispatchToProps
-const mapDispatchToProps = (dispatch: any):MapDispatchToPropsType => {
-    return {
-        setAutUserData : (id:number | null, login: string | null, email:string | null) => {
-            dispatch(setAutUserData(id, login,email))
-        },
-    }
-}
+// const mapDispatchToProps = (dispatch: Dispatch<ActionsType>):MapDispatchToPropsType => {
+//     return {
+//         setAutUserData : (id:number | null, login: string | null, email:string | null) => {
+//             dispatch(setAutUserData(id, login,email))
+//         },
+//     }
+// }
 
 
 type DataStateType = MapStateToPropsType & MapDispatchToPropsType
@@ -43,13 +42,13 @@ type DataStateType = MapStateToPropsType & MapDispatchToPropsType
 
 class HeaderContainer extends React.Component<DataStateType>{
     componentDidMount() {
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials:true}).then(response => {
-         if (response.data.resultCode === 0) {
-             let {id, login, email} = response.data.data
-             this.props.setAutUserData(id, login, email)
-         }
-        })
+         this.props.getAuthUserData()
+        // authAPI.me().then(response => {
+        //  if (response.data.resultCode === 0) {
+        //      let {id, login, email} = response.data.data
+        //      this.props.setAutUserData(id, login, email)
+        //  }
+        // })
     }
 
     render() {
@@ -61,4 +60,4 @@ class HeaderContainer extends React.Component<DataStateType>{
     }
 
 }
-export default connect(mapStateToProps,{setAutUserData})(HeaderContainer);
+export default connect(mapStateToProps,{getAuthUserData})(HeaderContainer);

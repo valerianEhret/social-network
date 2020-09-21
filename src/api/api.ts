@@ -1,8 +1,6 @@
 import axios from "axios";
+import {setUserProfile} from "../redux/profile-reducer";
 
-
-
-const baseURL = 'https://social-network.samuraijs.com/api/1.0/'
 
 // cоздаем инстанс, который мы будем исполшьзовать вместо axios
 const instance = axios.create({
@@ -25,8 +23,19 @@ export const usersAPI = {
     follow(userId:number ) {
        return  instance.post(`follow/${userId}`,{})
     },
+    getProfile(userId:number) {
+        debugger
+      return   instance.get(`profile/${userId}`)
+    },
+
 }
 
+
+export const authAPI = {
+me() {
+   return  instance.get(`auth/me`)
+},
+}
 
 
 // export const getUsers = (currentPage:number,pageSize:number ) => {

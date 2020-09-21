@@ -3,7 +3,10 @@
 
 //action types
 
-type ActionsType =
+import {authAPI} from "../api/api";
+import {Dispatch} from "react";
+
+export type ActionsType =
     | ReturnType<typeof setAutUserData>
 
 
@@ -22,10 +25,18 @@ export type DataType = {
 
 
 
+
 //action Creators
 
 export const setAutUserData = (id:number | null, login: string | null, email:string | null) => ({type: "SET_USER_DATA", data:{id, login, email} } as const)
-
+export const getAuthUserData = () => (dispatch:Dispatch<ActionsType>)=> {
+    authAPI.me().then(response => {
+        if (response.data.resultCode === 0) {
+            let {id, login, email} = response.data.data
+           dispatch(setAutUserData(id, login, email))
+        }
+    })
+}
 
 
 
