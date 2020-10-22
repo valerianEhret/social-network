@@ -41,7 +41,7 @@ const Dialogs = (props:DialogDataStateType) => {
 
     }
 
-   if (props.isAuth === false) return <Redirect to={'/login'}/>
+   if (!props.isAuth) return <Redirect to={'/login'}/>
 
 
 
