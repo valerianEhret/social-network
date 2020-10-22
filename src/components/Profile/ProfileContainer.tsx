@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {appStateType} from "../../redux/redux-store";
 import {UserType} from "../../redux/users-reducer";
 import {getUserProfile, setUserProfile} from "../../redux/profile-reducer";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 import {usersAPI} from "../../api/api";
 
@@ -52,6 +52,7 @@ type PhotosType = {
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
 type MapStateToPropsType = {
     profile:ProfileType
+    isAuth:boolean
 }
 type MapDispatchToPropsType = {
     // setUserProfile:(profile:ProfileType)=>void
@@ -76,6 +77,9 @@ class ProfileContainer extends React.Component <PropsType> {
     }
 
     render() {
+
+        if (this.props.isAuth === false) return <Redirect to = '/login'/>
+
         return <>
                 <Profile {...this.props} profile={this.props.profile}/>
             </>
@@ -86,7 +90,8 @@ class ProfileContainer extends React.Component <PropsType> {
 
     const mapStateToProps = (state: appStateType): MapStateToPropsType => {
         return {
-            profile: state.profilePage.profile
+            profile: state.profilePage.profile,
+            isAuth:state.auth.isAuth
         }
     }
 
