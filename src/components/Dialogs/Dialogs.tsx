@@ -2,16 +2,9 @@ import React, {ChangeEvent} from 'react';
 import classes from './Dialogs.module.css';
 import {Message} from "./Message/Message";
 import {Dialogitem} from "./DialogItem/DialogItem";
-import {dialogsDataType, dialogsStateType} from "../../redux/dialogs-reducer";
 import {MapDispatchToPropsType, MapStateToPropsType} from "./DialogsContainer";
 import { Redirect } from 'react-router-dom';
 
-
-// type DialogsType = {
-//     dialogsPage:dialogsStateType
-//     updateNewMessageBody: (body: string) => void
-//     sendMessage: () => void
-// }
 
 type DialogDataStateType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -19,29 +12,22 @@ type DialogDataStateType = MapStateToPropsType & MapDispatchToPropsType
 
 const Dialogs = (props:DialogDataStateType) => {
 
-    // let state = props.dialogsPage
 
     let dialogsElements = props.dialogsPage.map( d => <Dialogitem name={d.name} id={d.id}/>   );
 
     let messagesElements = props.messagesPage.map(m =>  <Message message={m.message} id={m.id}/> )
 
-    // let newMessageBody = props.newMessageBody
 
     const onSendMessageClick =() => {
         props.sendMessage()
-        // let action = sendMessageCreator()
-        // props.dispatch(action)
     }
 
     const onNewMessageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.target.value
         props.updateNewMessageBody(body)
-        // let action = updateNewMessageBodyCreator(body)
-        // props.dispatch(action)
-
     }
 
-   if (!props.isAuth) return <Redirect to={'/login'}/>
+   // if (!props.isAuth) return <Redirect to={'/login'}/>
 
 
 

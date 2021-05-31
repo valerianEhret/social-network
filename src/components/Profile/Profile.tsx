@@ -8,6 +8,7 @@ type PropsType = {
 }
 
 const Profile = (props:PropsType) => {
+    debugger
     return (
         <div>
             <ProfileInfo profile={props.profile}/>
