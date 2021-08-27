@@ -4,6 +4,8 @@ import {appStateType} from "../../redux/redux-store";
 import {unFollow, follow, UserType, setCurrentPage, toggleIsFollowingProgress, getUsers} from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 //Types
@@ -80,39 +82,10 @@ const mapStateToProps = (state: appStateType): MapStateToPropsType => {
     }
 }
 
-//mapDispatchToProps
-// const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
-//     return {
-//         follow: (userId:number) => {
-//             debugger
-//             dispatch(followAC(userId))
-//         },
-//         unfollow: (userId:number) => {
-//             dispatch(unFollowAC(userId))
-//         },
-//         setUsers:(users:Array<UserType>) => {
-//             debugger
-//             dispatch(setUserAC(users))
-//         },
-//         setCurrentPage:(pageNumber:number)=>{
-//             dispatch(setCurrentPageAC(pageNumber))
-//         },
-//         setTotalUsersCount:(totalUsersCount:number)=>{
-//             dispatch(setTotalUsersCountAC(totalUsersCount))
-//         },
-//         toggleIsFetching:(isFetching:boolean)=>{
-//             dispatch(toggleIsFetchingAC(isFetching))
-//         },
-//     }
-// }
 
-
-
-
-
-
-
-//connect
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, appStateType>(mapStateToProps,
-    {follow, unFollow, setCurrentPage,
-        toggleIsFollowingProgress, getUsers})(UsersAPIComponent)
+export default compose<React.ComponentType>(
+    connect<MapStateToPropsType, MapDispatchToPropsType, {}, appStateType>(mapStateToProps,
+        {follow, unFollow, setCurrentPage,
+            toggleIsFollowingProgress, getUsers}),
+    withAuthRedirect
+)(UsersAPIComponent)
