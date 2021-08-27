@@ -1,17 +1,17 @@
 import React from 'react';
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {ProfileType} from "./ProfileContainer";
+import { ProfileType } from "./ProfileContainer";
 
 type PropsType = {
-   profile:ProfileType
+    profile: ProfileType
 }
 
-const Profile = (props:PropsType) => {
-    debugger
+const Profile = (props: PropsType) => {
+
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} />
             <MyPostsContainer
             />
 
