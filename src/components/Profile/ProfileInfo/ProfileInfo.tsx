@@ -2,10 +2,13 @@ import React from 'react';
 import classes from "./ProfileInfo.module.css";
 import {Preloader} from "../../common/preloader/Preloader";
 import {ProfileType} from "../ProfileContainer";
-import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
+// import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 
 type ProfileInfoType = {
     profile:ProfileType
+    updateStatus:(title:string)=>void
+    status:string
 }
 
 
@@ -24,7 +27,7 @@ export const ProfileInfo = (props:ProfileInfoType) => {
             </div>
             <div className={classes.photo}>
                 <img  src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="avatar"/>
-                <ProfileStatus status='Hallo zusammen'/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
                 <img src={props.profile.photos.large}/>
                 <div>Полное имя: {props.profile.fullName} </div>
                 <div>О себе: {props.profile.aboutMe} </div>

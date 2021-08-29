@@ -1,10 +1,6 @@
+import {Dispatch} from "redux";
+import {authAPI, LoginParamsType} from "../api/api";
 
-//types
-
-//action types
-
-import {authAPI} from "../api/api";
-import {Dispatch} from "react";
 
 export type ActionsType =
     | ReturnType<typeof setAutUserData>
@@ -62,7 +58,24 @@ export const authReducer = (state: DataType = initilState, action: ActionsType) 
                 ...state, ...action.data, isAuth:true
             }
 
+
         default:
             return state
+    }
+}
+
+//Thunk
+export const loginTC = (email: string,password: string,rememberMe: boolean) => async (dispatch:Dispatch) => {
+    try {
+        const data = await authAPI.login(email, password, rememberMe);
+        if (data.resultCode === 0) {
+            // dispatch()
+        } else {
+            //dispatch(error)
+        }
+        console.log(JSON.stringify(data))
+
+    } catch (e) {
+
     }
 }

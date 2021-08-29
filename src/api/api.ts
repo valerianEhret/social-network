@@ -1,48 +1,71 @@
 import axios from "axios";
-import {setUserProfile} from "../redux/profile-reducer";
-
 
 // cоздаем инстанс, который мы будем исполшьзовать вместо axios
 const instance = axios.create({
-withCredentials:true,
-    headers:{
-        "API-KEY":"39c88548-6df5-43ab-a1ae-8869e921e539"
+    withCredentials: true,
+    headers: {
+        "API-KEY": "39c88548-6df5-43ab-a1ae-8869e921e539"
     },
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 });
 
 export const usersAPI = {
-    getUsers(currentPage:number,pageSize:number) {
+    getUsers(currentPage: number, pageSize: number) {
         debugger
         return instance.get(`users?page=${currentPage}&count=${pageSize}`,
-            {withCredentials:true}).then(response => response.data)
+            {withCredentials: true}).then(response => response.data)
     },
-    unfollow(userId:number) {
-     return  instance.delete(`follow/${userId}`)
+    unfollow(userId: number) {
+        return instance.delete(`follow/${userId}`)
     },
-    follow(userId:number ) {
-       return  instance.post(`follow/${userId}`,{})
+    follow(userId: number) {
+        return instance.post(`follow/${userId}`, {})
     },
-    getProfile(userId:number) {
-        debugger
-      return   instance.get(`profile/${userId}`)
+    getProfile(userId: number) {
+        console.log('Obsolete method. Please use profileAPI object')
+        return profileAPI.getProfile(userId)
     },
 
 }
+
+export const profileAPI = {
+    getProfile(userId: number) {
+        return instance.get(`profile/${userId}`)
+    },
+    getStatus(userId:number) {
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus(status:any) {
+        return instance.put(`profile/status`, {status})
+    }
+
+}
+
+
+export type  LoginParamsType= {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}
+
+export type ResponseType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    data: D
+}
+
 
 
 export const authAPI = {
-me() {
-   return  instance.get(`auth/me`)
-},
+    me() {
+        return instance.get(`auth/me`);
+    },
+    login: async (email: string,password: string,rememberMe: boolean) => {
+        const response = await instance.post<ResponseType<{userId:number}>>(`auth/login`, {email,password,rememberMe});
+        return response.data;
+    }
 }
-
-
-// export const getUsers = (currentPage:number,pageSize:number ) => {
-//     debugger
-//     return instance.get(baseURL+`users?page=${currentPage}&count=${pageSize}`,
-//         {withCredentials:true}).then(response => response.data)
-// }
 
 
 
