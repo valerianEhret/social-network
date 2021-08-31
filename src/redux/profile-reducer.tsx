@@ -7,7 +7,7 @@ import {profileAPI, usersAPI} from "../api/api";
 
 type ActionsType =
     | ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostTextActionCreator>
+    // | ReturnType<typeof updateNewPostTextActionCreator>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
 
@@ -23,7 +23,7 @@ export type PostDataType = {
 
 //создаем иницилищационное значение для Редюсера, берем его из старого стора
 let initilState = {
-    newPostText: "" as string,
+    newMessageBody: "" as string,
         posts: [
     {id: 1, message: "Hi, How are you?"},
     {id: 2, message: "It is my firs post"},
@@ -42,13 +42,12 @@ export const profileReducer = (state: profileStateType = initilState, action: Ac
 
         case 'ADD_POST':
             return  {...state,
-                posts: [...state.posts,{id: 5, message: state.newPostText} ],
-                newPostText: ''}
+                posts: [...state.posts,{id: 5, message: action.newMessageBody} ]}
 
-        case 'UPDATE_NEW_POST_TEXT':
-
-        return {...state,
-            newPostText: action.newText}
+        // case 'UPDATE_NEW_POST_TEXT':
+        //
+        // return {...state,
+        //     newPostText: action.newText}
 
         case 'SET_STATUS':
             return {...state, status: action.status}
@@ -63,10 +62,10 @@ export const profileReducer = (state: profileStateType = initilState, action: Ac
 
 //action Creators
 
-export const addPostActionCreator = () => ({type: 'ADD_POST'} as const)
+export const addPostActionCreator = (newMessageBody:string) => ({type: 'ADD_POST', newMessageBody} as const)
 
-export const updateNewPostTextActionCreator = (text:string) =>
-    ({ type: 'UPDATE_NEW_POST_TEXT', newText:text,} as const)
+// export const updateNewPostTextActionCreator = (text:string) =>
+//     ({ type: 'UPDATE_NEW_POST_TEXT', newText:text,} as const)
 
 export const setStatus = (status:string) => ({type:'SET_STATUS', status} as const)
 

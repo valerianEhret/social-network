@@ -4,6 +4,7 @@ import {Message} from "./Message/Message";
 import {Dialogitem} from "./DialogItem/DialogItem";
 import {MapDispatchToPropsType, MapStateToPropsType} from "./DialogsContainer";
 import {AddMessageForm} from "./AddMessageForm/AddMessageForm";
+import {sendMessageAC} from "../../redux/dialogs-reducer";
 
 type DialogDataStateType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -24,7 +25,7 @@ const Dialogs: React.FC<DialogDataStateType> = (
             <div className={classes.messages}>
                 <div>{messagesElements}</div>
                 <div>
-                    <AddMessageForm/>
+                    <AddMessageForm buttonTitle={'Send'} sendMessage={sendMessageAC}/>
                 </div>
             </div>
         </div>

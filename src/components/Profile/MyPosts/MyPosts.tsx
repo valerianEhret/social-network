@@ -1,17 +1,14 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {PostType} from "../../../redux/profile-reducer";
-
-// import {strict} from "assert";
-// import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
+import {addPostActionCreator, PostType} from "../../../redux/profile-reducer";
+import {AddMessageForm} from "../../Dialogs/AddMessageForm/AddMessageForm";
 
 type PropsType = {
     posts: Array<PostType>
-    newPostText:string
-    addPost: () => void
-    updateNewPostText: (text:string) => void
-    // dispatch: Function
+    newMessageBody:string
+    addPost: (newMessageBody:string) => void
+    // updateNewPostText: (text:string) => void
 }
 
 
@@ -19,24 +16,9 @@ const MyPosts = (props:PropsType) => {
 
     let postElements = props.posts.map( el => <Post message={el.message} />    );
 
-    const onAddPost = () => {
-            props.addPost()
-    }
-
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.currentTarget.value
-        props.updateNewPostText(text)
-    }
-
     return (
         <div className={classes.item}>
-            <div>
-                <textarea value={props.newPostText} onChange={onPostChange }/>
-            </div>
-           <div>
-               <button onClick={ onAddPost}>Add post</button>
-           </div>
-
+            <AddMessageForm buttonTitle='Add post' sendMessage={addPostActionCreator}/>
             <h3>My posts</h3>
             <div>
                 New posts
