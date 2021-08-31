@@ -1,8 +1,6 @@
 import React from 'react';
 
-
-// создаем начальное значение для редюсера, берем его из старого стора
-let initialState  = {
+let initialState = {
     newMessageBody: "" as string,
     dialogs: [
         {id: 1, name: "Valerian"},
@@ -19,44 +17,29 @@ let initialState  = {
 }
 
 //action creators
-
-export const sendMessageAC = (newMessageBody:string) => ({type: 'SEND_MESSAGE', newMessageBody} as const)
-export const updateNewMessageBodyCreator = (body:string) => ({ type: 'UPDATE_NEW_MESSAGE_BODY', body:body}as const)
-
-
-
+export const sendMessageAC = (newMessageBody: string) => ({type: 'SEND_MESSAGE', newMessageBody} as const)
+// export const updateNewMessageBodyCreator = (body:string) => ({ type: 'UPDATE_NEW_MESSAGE_BODY', body:body}as const)
 
 export type dialogsStateType = typeof initialState
 
 // reducer
-
-export const dialogsReducer = (state:dialogsStateType = initialState,action:ActionsType) => {
-
+export const dialogsReducer = (state: dialogsStateType = initialState, action: ActionsType) => {
     switch (action.type) {
-
-        case 'UPDATE_NEW_MESSAGE_BODY':
-            return  {
-                ...state,
-                newMessageBody: action.body
-            }
-
         case 'SEND_MESSAGE':
             let body = action.newMessageBody
-            return  {...state,
-                newMessageBody:'',
-                messages: [...state.messages,{id: 6, message: body} ] }
-
+            return {
+                ...state,
+                messages: [...state.messages, {id: 6, message: body}]
+            }
         default:
-
             return state
     }
-
 }
 
 //type
 type ActionsType =
     | ReturnType<typeof sendMessageAC>
-    | ReturnType<typeof updateNewMessageBodyCreator>
+
 
 // type actionType = inferType<typeof action>
 // type inferType<T> = T extends { [key: string]: (...arg: any[]) => infer U } ? U : never
@@ -66,14 +49,13 @@ type ActionsType =
 //      updateNewMessageBodyCreator : (body:string) => ({ type: 'UPDATE_NEW_MESSAGE_BODY', body:body}as const)
 // }
 
-
-export type dialogsDataType={
-    id:number
-    name:string
+export type dialogsDataType = {
+    id: number
+    name: string
 }
 
-export type messageDataType={
-    id:number
-    message:string
+export type messageDataType = {
+    id: number
+    message: string
 }
 
