@@ -20,7 +20,7 @@ let initialState  = {
 
 //action creators
 
-export const sendMessageAC = () => ({type: 'SEND_MESSAGE'} as const)
+export const sendMessageAC = (newMessageBody:string) => ({type: 'SEND_MESSAGE', newMessageBody} as const)
 export const updateNewMessageBodyCreator = (body:string) => ({ type: 'UPDATE_NEW_MESSAGE_BODY', body:body}as const)
 
 
@@ -41,7 +41,7 @@ export const dialogsReducer = (state:dialogsStateType = initialState,action:Acti
             }
 
         case 'SEND_MESSAGE':
-            let body = state.newMessageBody
+            let body = action.newMessageBody
             return  {...state,
                 newMessageBody:'',
                 messages: [...state.messages,{id: 6, message: body} ] }

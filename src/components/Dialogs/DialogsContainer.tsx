@@ -25,7 +25,7 @@ export type MapStateToPropsType = {
 
 export type MapDispatchToPropsType = {
     updateNewMessageBody: (body: string) => void
-    sendMessage: () => void
+    sendMessage: (newMessageBody:string) => void
 }
 
 
@@ -44,8 +44,8 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         updateNewMessageBody: (body: string) => {
             dispatch(updateNewMessageBodyCreator(body))
         },
-        sendMessage: () => {
-            dispatch(sendMessageAC())
+        sendMessage: (newMessageBody:string) => {
+            dispatch(sendMessageAC(newMessageBody))
         }
 
     }
