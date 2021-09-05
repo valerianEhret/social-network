@@ -1,10 +1,10 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {profileReducer} from "./profile-reducer";
-import {dialogsReducer} from "./dialogs-reducer";
+import {ProfileActionsType, profileReducer} from "./profile-reducer";
+import {DialogsActionsType, dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
-import {usersReducer} from "./users-reducer";
-import {authReducer} from "./auth-reducer";
-import thunkMiddleware from "redux-thunk"
+import {UsersActionsType, usersReducer} from "./users-reducer";
+import {AuthActionsType, authReducer} from "./auth-reducer";
+import thunkMiddleware, {ThunkAction} from "redux-thunk"
 
 //закидываем все редюсеры сюда, объединяем их для редакса
 let reducers = combineReducers(   {
@@ -16,6 +16,13 @@ let reducers = combineReducers(   {
 })
 
 // отдаем reducers в store
+
+//type of all action creators
+export  type AppActionsType = AuthActionsType | DialogsActionsType | ProfileActionsType | UsersActionsType
+
+//type of all Thunk creators
+export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, appStateType, unknown, AppActionsType>
+
 
 export let store = createStore(reducers, applyMiddleware(thunkMiddleware))
 

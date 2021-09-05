@@ -55,14 +55,23 @@ export type ResponseType<D = {}> = {
     data: D
 }
 
+type AuthMeType = {
+    id:number
+    email:string
+    login:string
+}
 
 
 export const authAPI = {
-    me() {
-        return instance.get(`auth/me`);
+    me: async()=> {
+        return instance.get<ResponseType<AuthMeType>>(`auth/me`);
     },
     login: async (email: string,password: string,rememberMe: boolean) => {
         const response = await instance.post<ResponseType<{userId:number}>>(`auth/login`, {email,password,rememberMe});
+        return response.data;
+    },
+    logout: async () => {
+        const response = await instance.delete<ResponseType>(`auth/login`);
         return response.data;
     }
 }

@@ -3,7 +3,8 @@ import classes from "./ProfileInfo.module.css";
 import {Preloader} from "../../common/preloader/Preloader";
 import {ProfileType} from "../ProfileContainer";
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
-// import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
+
+
 
 type ProfileInfoType = {
     profile:ProfileType

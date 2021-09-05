@@ -23,7 +23,7 @@ export const sendMessageAC = (newMessageBody: string) => ({type: 'SEND_MESSAGE',
 export type dialogsStateType = typeof initialState
 
 // reducer
-export const dialogsReducer = (state: dialogsStateType = initialState, action: ActionsType) => {
+export const dialogsReducer = (state: dialogsStateType = initialState, action: DialogsActionsType) => {
     switch (action.type) {
         case 'SEND_MESSAGE':
             let body = action.newMessageBody
@@ -37,7 +37,7 @@ export const dialogsReducer = (state: dialogsStateType = initialState, action: A
 }
 
 //type
-type ActionsType =
+export type DialogsActionsType =
     | ReturnType<typeof sendMessageAC>
 
 
