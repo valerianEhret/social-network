@@ -23,7 +23,7 @@ export const authReducer = (state: DataType = initialState, action: AuthActionsT
     switch (action.type) {
         case "SET_USER_DATA":
             return {
-                ...state, ...action.data, isAuth: true
+                ...state, ...action.payload
             }
         default:
             return state
@@ -31,8 +31,8 @@ export const authReducer = (state: DataType = initialState, action: AuthActionsT
 }
 
 //action Creators
-export const setAutUserData = (id: number | null, login: string | null, email: string | null) => {
-    return {type: "SET_USER_DATA", data: {id, login, email}} as const
+export const setAutUserData = (id: number | null, login: string | null, email: string | null, isAuth:boolean) => {
+    return {type: "SET_USER_DATA", payload: {id, login, email, isAuth}} as const
 }
 
 //actions type
@@ -42,31 +42,55 @@ export type AuthActionsType =
 
 //Thunk
 
-export const getAuthUserData = (): AppThunkType => (dispatch) => {
-    authAPI.me().then(response => {
+// export const getAuthUserData = (): AppThunkType => dispatch => {
+//     debugger
+//     authAPI.me()
+//         .then(response => {
+//         if (response.data.resultCode === 0) {
+//             debugger
+//             let {id, login, email} = response.data.data
+//             dispatch(setAutUserData(id, login, email, true))
+//         }
+//     })
+// }
+
+
+export const getAuthUserData = (): AppThunkType => async dispatch => {
+    debugger
+    try {
+        const response = await authAPI.me()
         if (response.data.resultCode === 0) {
+            debugger
             let {id, login, email} = response.data.data
-            dispatch(setAutUserData(id, login, email))
+            dispatch(setAutUserData(id, login, email, true))
+
         }
-    })
+    } catch (e) {
+
+    }
+
 }
 
 export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunkType => async dispatch => {
+    debugger
     try {
         const data = await authAPI.login(email, password, rememberMe);
         if (data.resultCode === 0) {
+            debugger
             dispatch(getAuthUserData)
+            console.log('getAuthUserData')
         }
     } catch (e) {
         throw new Error(e)
     }
 }
 
-export const logoutTC = (): AppThunkType => async dispatch => {
+export const logout = (): AppThunkType => async dispatch => {
+    debugger
     try {
         const data = await authAPI.logout();
         if (data.resultCode === 0) {
-            dispatch(getAuthUserData)
+            dispatch(setAutUserData(null, null, null, false))
         } else {
             //dispatch(error)
         }

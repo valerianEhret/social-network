@@ -63,7 +63,8 @@ type AuthMeType = {
 
 
 export const authAPI = {
-    me: async()=> {
+    me: ()=> {
+        debugger
         return instance.get<ResponseType<AuthMeType>>(`auth/me`);
     },
     login: async (email: string,password: string,rememberMe: boolean) => {

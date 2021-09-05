@@ -1,7 +1,9 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "../redux/auth-reducer";
+import {appStateType} from "../redux/redux-store";
+import {Redirect} from "react-router-dom";
 
 
 export type LoginPropsType = {
@@ -19,6 +21,7 @@ type FormikErrorType = {
 export const Login: React.FC = () => {
 
     const dispatch = useDispatch();
+    const isAuth = useSelector<appStateType, boolean>(state => state.auth.isAuth)
 
     const formik = useFormik({
         initialValues: {
@@ -48,6 +51,9 @@ export const Login: React.FC = () => {
 
     });
 
+    if (isAuth) {
+        return <Redirect to={'/profile'}/>
+    }
 
     return (
         <form onSubmit={formik.handleSubmit}>
