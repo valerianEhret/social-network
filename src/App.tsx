@@ -8,6 +8,7 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import { Login } from "./Login/Login";
+import NavbarContainer from "./components/Navbar/NavbarContainer";
 
 
 
@@ -20,7 +21,7 @@ function App() {
                      <HeaderContainer />
                      <div className="app-wrapper">
 
-                            <Navbar />
+                            <NavbarContainer />
                             <div className="app-wrapper-content">
                                    <Route path="/Dialogs"
                                           render={() => <DialogsContainer
