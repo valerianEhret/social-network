@@ -77,7 +77,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
         const data = await authAPI.login(email, password, rememberMe);
         if (data.resultCode === 0) {
             debugger
-            dispatch(getAuthUserData)
+            dispatch(getAuthUserData())
             console.log('getAuthUserData')
         }
     } catch (e) {
