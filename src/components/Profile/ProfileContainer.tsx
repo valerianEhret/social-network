@@ -42,10 +42,7 @@ type PhotosType = {
     large: string
 }
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
-type MapStateToPropsType = {
-    profile: ProfileType
-    status:string
-}
+
 type MapDispatchToPropsType = {
     getUserProfile: (userId: number) => void
     getUserStatusTC:(userId: number)=>void
@@ -57,7 +54,10 @@ class ProfileContainer extends React.Component <PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = 10983
+            userId = this.props.authorizedUserId;
+            if (!userId) {
+                this.props.history.push('/login')
+            }
         }
         this.props.getUserProfile(userId);
         this.props.getUserStatusTC(userId);
@@ -73,11 +73,21 @@ class ProfileContainer extends React.Component <PropsType> {
 }
 
 
+
+type MapStateToPropsType = {
+    profile: ProfileType
+    status:string
+    authorizedUserId:number | null
+    isAuth:boolean
+}
+
 //mapStateToProps
 const mapStateToProps = (state: appStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        authorizedUserId: state.auth.id,
+        isAuth:state.auth.isAuth
     }
 }
 
