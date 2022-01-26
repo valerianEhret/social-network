@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import {Route, withRouter} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {Login} from "./Login/Login";
@@ -12,6 +11,8 @@ import {compose} from "redux";
 import {initializingTC} from "./redux/app-reducer";
 import {appStateType} from "./redux/redux-store";
 import {Preloader} from "./components/common/preloader/Preloader";
+import {UsersContainer} from "./components/Users/UsersContainer";
+
 
 
 export type MapDispatchToPropsType = {
@@ -44,7 +45,7 @@ class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> 
                         <Route path="/profile/:userId?"
                                render={() => <ProfileContainer/>}/>
                         <Route path="/users"
-                               render={() => <UsersContainer/>}/>
+                               render={() => <UsersContainer pageTitle={'Users'}/>}/>
                         <Route path="/login"
                                render={() => <Login/>}/>
                     </div>

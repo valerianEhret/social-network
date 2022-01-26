@@ -1,38 +1,53 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./users.module.css"
 import userPhoto from "../../assets/images/images.png"
-import {UserType} from "../../redux/users-reducer";
+import {followThunk, requestUsers, unfollowThunk, UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import {Pagination} from "../Pagination/Pagination";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/users-selectors";
 
 type UsersDataStateType = {
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    onPageChanged: (p: number) => void
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    usersPage: Array<UserType>
-    toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
-    followingInProgress: any[]
+
 }
 
-export const Users: React.FC<UsersDataStateType> = ({
-                                                        currentPage,
-                                                        totalUsersCount,
-                                                        usersPage,
-                                                        followingInProgress,
-                                                        unfollow,
-                                                        follow,
-                                                        onPageChanged,
-                                                        pageSize
-                                                    }) => {
+export const Users: React.FC<UsersDataStateType> = ({}) => {
+
+
+    const totalUsersCount = useSelector(getTotalUsersCount)
+    const currentPage = useSelector(getCurrentPage)
+    const pageSize = useSelector(getPageSize)
+    const users = useSelector(getUsers)
+    const followingInProgress = useSelector(getFollowingInProgress)
+
+    useEffect(()=>{
+        dispatch(requestUsers(currentPage,pageSize ))
+    },[])
+
+    const dispatch = useDispatch()
 
 
     const pagesCount = Math.ceil(totalUsersCount / pageSize);
 
+    const onPageChanged = (pageNumber: number) => {
 
+        dispatch(requestUsers(pageNumber,pageSize ))
+    }
+
+
+    const follow = (userId:number) => {
+        dispatch(followThunk(userId))
+    }
+
+    const unfollow = (userId:number) => {
+        dispatch(unfollowThunk(userId))
+    }
 
 
     return (
@@ -42,7 +57,7 @@ export const Users: React.FC<UsersDataStateType> = ({
                 currentPage={currentPage}
                 portionSize={5}
                 pagesCount={pagesCount}/>
-            {usersPage.map(u => <div key={u.id}>
+            {users.map(u => <div key={u.id}>
                 <span>
                         <div>
                             <NavLink to={'/profile/' + u.id}>
