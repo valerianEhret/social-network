@@ -56,9 +56,6 @@ export const authActions = {
     }
 }
 
-// export const setAutUserData = (id: number | null, login: string | null, email: string | null, isAuth:boolean) => {
-//     return {type: "SET_USER_DATA", payload: {id, login, email, isAuth}} as const
-// }
 
 //actions type
 export type AuthActionsType = InferActionsType<typeof authActions>
@@ -78,7 +75,7 @@ export const getAuthUserData = (): AppThunkType => async dispatch => {
             // let action = stopSubmit();
         }
     } catch (e) {
-
+        throw new Error(e)
     }
 }
 
@@ -111,6 +108,6 @@ export const logout = (): AppThunkType => async dispatch => {
         console.log(JSON.stringify(data))
 
     } catch (e) {
-
+        throw new Error(e)
     }
 }

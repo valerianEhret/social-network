@@ -4,6 +4,7 @@ import userPhoto from "../../assets/images/images.png"
 import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import {Pagination} from "../Pagination/Pagination";
+import {useSelector} from "react-redux";
 
 type UsersDataStateType = {
     pageSize: number
@@ -30,6 +31,9 @@ export const Users: React.FC<UsersDataStateType> = ({
 
 
     const pagesCount = Math.ceil(totalUsersCount / pageSize);
+
+
+
 
     return (
         <>
