@@ -5,7 +5,7 @@ import {unFollow, follow, UserType, setCurrentPage, toggleIsFollowingProgress, g
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {compose} from "redux";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+
 
 
 //Types
